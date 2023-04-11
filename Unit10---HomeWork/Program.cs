@@ -10,7 +10,8 @@ namespace Unit10___HomeWork
     {
         static void Main(string[] args)
         {
-            Calculator calculator = new Calculator();
+            Logger logger= new Logger();
+            Calculator calculator = new Calculator(logger);
 
             Console.WriteLine("Hello! Now we will add two numbers");
             calculator.Read();

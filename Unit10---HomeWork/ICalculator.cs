@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Unit10___HomeWork
 {
+    // interface for calculator
     interface ICalculator
     {
         void Add();

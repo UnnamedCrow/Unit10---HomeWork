@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace Unit10___HomeWork
 {
     class Calculator : ICalculator
     {
+        Logger logger { get; }
         // storage of numbers
         int?[] nums;
         // interface function
@@ -15,37 +17,40 @@ namespace Unit10___HomeWork
         {
             try
             {
+                ((ILogger)logger).Event("Addition two numbers");
                 Console.WriteLine($"{nums[0]} + {nums[1]} = {nums[0] + nums[1]}");
             }
             catch(Exception ex)
             {
+
                 Console.WriteLine(ex.Message);
             }
         }
         // Read two numbers from console 
         public void Read()
         {
+            ((ILogger)logger).Event("Start reading numbers");
             // Read first number from console
             while (nums[0] == null)
             {
                 try
                 {
-                    Console.Write("Enter first num :");
+                    ((ILogger)logger).Event("Enter first number: ");
                     nums[0] = int.Parse(Console.ReadLine());
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Wrong number format");
+                    logger.Error("Ooops! Wrong number format");
                     nums[0] = null;
                 }
                 catch(OverflowException)
                 {
-                    Console.WriteLine("Nuber out of range");
+                    logger.Error("Ooops! Nuber out of range");
                     nums[0] = null;
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    logger.Error("Ooops! " + ex.Message);
                     nums[0] = null;
                 }
             }
@@ -55,22 +60,24 @@ namespace Unit10___HomeWork
             {
                 try
                 {
-                    Console.Write("Enter second num :");
+                    ((ILogger)logger).Event("Enter second num :");
                     if (int.TryParse(Console.ReadLine(), out a))
                         nums[1] = a;
                     else
-                        throw new Exception("Wrong value entered");
+                        throw new Exception("Ooops! Wrong value entered");
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    logger.Error(ex.Message);
                     nums[1] = null;
                 }
             }
+            ((ILogger)logger).Event("Reading numbers complited");
         }
         // Calculators constructor
-        public Calculator()
+        public Calculator(Logger logger)
         {
+            this.logger = logger;
             this.nums = new int?[2] {null , null}; 
         }
     }

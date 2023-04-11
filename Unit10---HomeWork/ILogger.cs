@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Unit10___HomeWork
 {
-    internal interface Interface1
+    interface ILogger
     {
+        void Event(string message);
+        void Error(string message);
     }
 }

@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Unit10___HomeWork
 {
-    internal class Class1
+    class Logger : ILogger
     {
+        public void Error(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        void ILogger.Event(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(message);
+        }
     }
 }
