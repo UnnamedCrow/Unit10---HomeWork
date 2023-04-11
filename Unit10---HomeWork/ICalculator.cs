@@ -11,5 +11,6 @@ namespace Unit10___HomeWork
     interface ICalculator
     {
         void Add();
+        void Read();
     }
 }
